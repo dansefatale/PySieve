@@ -1,0 +1,4 @@
+Pysieve is simple wrapper of the msieve prime factorization library.
+It basically gives you a fast factor command and some utilities. For
+now it only compiles on OSX with msieve installed via macports. Very
+basic.
