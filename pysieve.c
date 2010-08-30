@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <msieve.h>
 
+/* Copied over, more than less, from demo.c in the msieve
+  sources. */
 
 void get_random_seeds(uint32 *seed1, uint32 *seed2){
 	FILE *rand_device = fopen("/dev/urandom", "r");
@@ -37,6 +39,7 @@ void calculate_factors(char *buf,
 	msieve_factor *factor;
 	msieve_obj *g_curr_factorization;
 
+	/* sanitize the input */
 	last = strchr(buf, '\n');
 	if (last)
 		*last = 0;
@@ -63,7 +66,9 @@ void calculate_factors(char *buf,
 	}
 	
 	msieve_run(g_curr_factorization);
+	
 
+	/* Put the factors in a Python list */
 	factor = g_curr_factorization->factors;
 
 	while(factor != NULL){
@@ -71,14 +76,7 @@ void calculate_factors(char *buf,
 		factor = factor->next;
 	}
 	
-	/*printf("Number: %s\nFactors:\n", buf);
-
-	while(factor != NULL){
-		printf("%s\n", factor->number);
-		factor = factor->next;
-	}
-	printf("\n");*/
-
+	/* Clean up */
 	obj = g_curr_factorization;
 	g_curr_factorization = NULL;
 	if (obj)
