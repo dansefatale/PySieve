@@ -86,7 +86,7 @@ void calculate_factors(char *buf,
 }
 
 
-static PyObject *pysieve_pysieve(PyObject *self, PyObject *args){
+static PyObject *_pysieve_pysieve_c(PyObject *self, PyObject *args){
 
 	uint32 seed1, seed2;
 	uint32 cache_size1, cache_size2;
@@ -136,13 +136,13 @@ static PyObject *pysieve_pysieve(PyObject *self, PyObject *args){
 			
 }
 
-PyMethodDef PySieveMethods[] = {
-	{"pysieve", pysieve_pysieve, METH_VARARGS, "factor a number"},
+PyMethodDef _PySieveMethods[] = {
+	{"pysieve", _pysieve_pysieve_c, METH_VARARGS, "factor a number"},
 	{NULL, NULL, 0 ,NULL}
 };
 
-PyMODINIT_FUNC initpysieve(void){
-	(void) Py_InitModule("pysieve", PySieveMethods);
+PyMODINIT_FUNC init_pysieve(void){
+	(void) Py_InitModule("_pysieve", _PySieveMethods);
 	
 }
 
