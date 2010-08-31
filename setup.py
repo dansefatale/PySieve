@@ -7,7 +7,7 @@ _pysieve = Extension('_pysieve',
                     sources = ['pysieve.c'])
 
 setup (name = 'pysieve',
-       version = '0.0',
-       description = 'prime factors',
+       version = '0.01a',
+       description = 'Fast prime factorization using the msieve library',
        py_modules = ['pysieve'],
        ext_modules = [_pysieve])
