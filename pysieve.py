@@ -6,7 +6,7 @@ def factor(n):
 
 def dfactor(n):
     """ Returns a list of distinct prime factors of n """
-    return list(set(factor(n)))
+    return sorted(list(set(factor(n))))
 
 def facExponents(n):
     """ Return a list of tuples containing the prime factors of n and their exponents """
