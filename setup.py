@@ -1,13 +1,49 @@
 from distutils.core import setup, Extension
+import os.path
 
-_pysieve = Extension('_pysieve',
-                    include_dirs = ['/opt/local/include/msieve'],
+
+# Look for the msieve lib and header 
+# Currently only for Unix
+libpaths = ['/usr/local/lib', '/usr/lib','/opt/local/lib']
+includepaths = ['/usr/local/include', '/usr/include', '/opt/local/include']
+
+libpath = []
+for p in libpaths:
+    if os.path.exists(os.path.join(p, 'libmsieve.a')):
+        libpath.append(p)
+    
+    if os.path.exists(os.path.join(p, 'libgmp.a')):
+        libpath.append(p)
+
+# remove duplicates:
+libpath = list(set(libpath))
+
+
+includepath = []
+for p in includepaths:
+    if os.path.exists(os.path.join(p, 'msieve/msieve.h')):
+        includepath.append( os.path.join(p, 'msieve'))
+        break
+    elif os.path.exists(os.path.join(p, 'msieve.h')):
+        includepath.append(p)
+        break
+
+
+
+# setup
+extension1 = Extension('_pysieve',
+                    include_dirs = includepath,
                     libraries = ['msieve', 'gmp'],
-                    library_dirs = ['/opt/local/lib/'],
-                    sources = ['pysieve.c'])
+                    library_dirs = libpath,
+                    sources = ['pysieve/pysieve.c'])
 
-setup (name = 'pysieve',
-       version = '0.01a',
+setup (name = 'PySieve',
+       version = '0.5.0',
+       packages=['pysieve'],
+       ext_modules = [extension1],
+       author = 'Severin Bannert',
+       author_email = 'severin.bannert@gmail.com',
        description = 'Fast prime factorization using the msieve library',
-       py_modules = ['pysieve'],
-       ext_modules = [_pysieve])
+       long_description = open('README.txt').read())
+
+
