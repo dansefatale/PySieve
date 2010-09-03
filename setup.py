@@ -43,6 +43,7 @@ setup (name = 'PySieve',
        ext_modules = [extension1],
        author = 'Severin Bannert',
        author_email = 'severin.bannert@gmail.com',
+       url = 'http://github.com/dansefatale/PySieve',
        description = 'Fast prime factorization using the msieve library',
        long_description = open('README.txt').read())
 
