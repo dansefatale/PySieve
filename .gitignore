@@ -6,3 +6,4 @@ msieve.dat
 test/
 .#*
 \#*
+dist/
